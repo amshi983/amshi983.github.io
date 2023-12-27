@@ -1,89 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator Selection</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .calculator-link {
-      cursor: pointer;
-      color: blue;
-      text-decoration: underline;
-      margin-bottom: 10px;
-    }
-    .calculator-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .calculator-frame {
-      width: 100%;
-      height: 400px;
-      border: none;
-      display: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #calculator-container {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Select a Calculator</h1>
+    <h1>Calculator Selector</h1>
 
-<p class="calculator-link" onclick="openCalculator('bmi')">BMI Calculator</p>
-<p class="calculator-link" onclick="openCalculator('calorie')">Calorie Calculator</p>
-<p class="calculator-link" onclick="openCalculator('protein')">Protein to Body Ratio Calculator</p>
+    <label for="calculatorSelect">Choose a Calculator:</label>
+    <select id="calculatorSelect" onchange="showCalculator()">
+        <option value="" disabled selected>Select a Calculator</option>
+        <option value="bmiCalculator">BMI Calculator</option>
+        <option value="calorieCalculator">Calorie Calculator</option>
+        <option value="proteinRatioCalculator">Protein to Body Ratio Calculator</option>
+    </select>
 
-<div class="calculator-container" id="calculator-container"></div>
+    <div id="calculator-container">
+        <!-- BMI Calculator -->
+        <div id="bmiCalculator" class="calculator">
+            <h2>BMI Calculator</h2>
+            <!-- BMI Calculator -->
+<div id="bmiCalculator" class="calculator">
+    <h2>BMI Calculator</h2>
+    <form id="bmiForm">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br>
+
+        <label for="height">Height (in cm):</label>
+        <input type="number" id="height" name="height" required><br>
+
+        <label for="weight">Weight (in kg):</label>
+        <input type="number" id="weight" name="weight" required><br>
+
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female" required>
+        <label for="female">Female</label><br>
+
+        <input type="button" value="Calculate BMI" onclick="calculateBMI()">
+    </form>
+
+    <p id="result"></p>
+</div>
 
 <script>
-  class Calculator {
-    constructor(type, containerId) {
-      this.type = type;
-      this.container = document.getElementById(containerId);
-      this.calculatorFrame = document.createElement('iframe');
-      this.calculatorFrame.className = 'calculator-frame';
-      this.calculatorFrame.style.border = 'none';
-      this.calculatorFrame.src = this.getCalculatorURL();
-      this.container.appendChild(this.calculatorFrame);
+    function calculateBMI() {
+        var age = document.getElementById("age").value;
+        var height = document.getElementById("height").value;
+        var weight = document.getElementById("weight").value;
+        var gender = document.querySelector('input[name="gender"]:checked');
+
+        if (age && height && weight && gender) {
+            var bmi = (weight / ((height / 100) * (height / 100))).toFixed(2);
+            var result = "BMI: " + bmi;
+
+            // Display BMI result
+            document.getElementById("result").innerText = result;
+        } else {
+            alert("Please fill in all fields.");
+        }
     }
-
-    getCalculatorURL() {
-      switch (this.type) {
-        case 'bmi':
-          return 'https://www.example.com/bmi-calculator'; // Replace with the actual URL of your BMI calculator
-        case 'calorie':
-          return 'https://www.example.com/calorie-calculator'; // Replace with the actual URL of your Calorie calculator
-        case 'protein':
-          return 'https://www.example.com/protein-calculator'; // Replace with the actual URL of your Protein calculator
-        default:
-          return '';
-      }
-    }
-
-    show() {
-      this.calculatorFrame.style.display = 'block';
-    }
-
-    hide() {
-      this.calculatorFrame.style.display = 'none';
-    }
-  }
-
-  const calculatorContainer = document.getElementById('calculator-container');
-  let currentCalculator = null;
-
-  function openCalculator(calculatorType) {
-    if (currentCalculator) {
-      currentCalculator.hide();
-    }
-
-    currentCalculator = new Calculator(calculatorType, 'calculator-container');
-    currentCalculator.show();
-  }
 </script>
+
+        </div>
+
+        <!-- Calorie Calculator -->
+        <div id="calorieCalculator" class="calculator">
+            <h2>Calorie Calculator</h2>
+            <!-- Calorie Calculator Form Goes Here -->
+        </div>
+
+        <!-- Protein to Body Ratio Calculator -->
+        <div id="proteinRatioCalculator" class="calculator">
+            <h2>Protein to Body Ratio Calculator</h2>
+            <!-- Protein Ratio Calculator Form Goes Here -->
+        </div>
+    </div>
+
+    <script>
+        function showCalculator() {
+            var select = document.getElementById("calculatorSelect");
+            var calculatorContainer = document.getElementById("calculator-container");
+            var selectedCalculator = select.value;
+
+            // Hide all calculators
+            var calculators = document.getElementsByClassName("calculator");
+            for (var i = 0; i < calculators.length; i++) {
+                calculators[i].style.display = "none";
+            }
+
+            // Show selected calculator
+            if (selectedCalculator) {
+                var selectedCalculatorDiv = document.getElementById(selectedCalculator);
+                if (selectedCalculatorDiv) {
+                    selectedCalculatorDiv.style.display = "block";
+                    calculatorContainer.style.display = "block";
+                }
+            } else {
+                calculatorContainer.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 </html>

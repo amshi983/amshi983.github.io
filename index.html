@@ -15,6 +15,29 @@
             display: none;
             margin-top: 20px;
         }
+
+        .calculator {
+            display: none;
+        }
+
+        #result {
+            font-weight: bold;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -33,62 +56,78 @@
         <!-- BMI Calculator -->
         <div id="bmiCalculator" class="calculator">
             <h2>BMI Calculator</h2>
-            <!-- BMI Calculator -->
-<div id="bmiCalculator" class="calculator">
-    <h2>BMI Calculator</h2>
-    <form id="bmiForm">
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required><br>
+            <form id="bmiForm">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required><br>
 
-        <label for="height">Height (in cm):</label>
-        <input type="number" id="height" name="height" required><br>
+                <label for="height">Height (in cm):</label>
+                <input type="number" id="height" name="height" required><br>
 
-        <label for="weight">Weight (in kg):</label>
-        <input type="number" id="weight" name="weight" required><br>
+                <label for="weight">Weight (in kg):</label>
+                <input type="number" id="weight" name="weight" required><br>
 
-        <label>Gender:</label>
-        <input type="radio" id="male" name="gender" value="male" required>
-        <label for="male">Male</label>
-        <input type="radio" id="female" name="gender" value="female" required>
-        <label for="female">Female</label><br>
+                <label>Gender:</label>
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female" required>
+                <label for="female">Female</label><br>
 
-        <input type="button" value="Calculate BMI" onclick="calculateBMI()">
-    </form>
+                <input type="button" value="Calculate BMI" onclick="calculateBMI()">
+            </form>
 
-    <p id="result"></p>
-</div>
-
-<script>
-    function calculateBMI() {
-        var age = document.getElementById("age").value;
-        var height = document.getElementById("height").value;
-        var weight = document.getElementById("weight").value;
-        var gender = document.querySelector('input[name="gender"]:checked');
-
-        if (age && height && weight && gender) {
-            var bmi = (weight / ((height / 100) * (height / 100))).toFixed(2);
-            var result = "BMI: " + bmi;
-
-            // Display BMI result
-            document.getElementById("result").innerText = result;
-        } else {
-            alert("Please fill in all fields.");
-        }
-    }
-</script>
-
+            <p id="bmiResult" class="result"></p>
         </div>
 
         <!-- Calorie Calculator -->
         <div id="calorieCalculator" class="calculator">
             <h2>Calorie Calculator</h2>
-            <!-- Calorie Calculator Form Goes Here -->
+            <form id="calorieForm">
+                <label for="calorieAge">Age:</label>
+                <input type="number" id="calorieAge" name="calorieAge" required><br>
+
+                <label for="calorieHeight">Height (in cm):</label>
+                <input type="number" id="calorieHeight" name="calorieHeight" required><br>
+
+                <label for="calorieWeight">Weight (in kg):</label>
+                <input type="number" id="calorieWeight" name="calorieWeight" required><br>
+
+                <label>Gender:</label>
+                <input type="radio" id="calorieMale" name="calorieGender" value="male" required>
+                <label for="calorieMale">Male</label>
+                <input type="radio" id="calorieFemale" name="calorieGender" value="female" required>
+                <label for="calorieFemale">Female</label><br>
+
+                <label for="calorieActivity">Activity Level:</label>
+                <select id="calorieActivity" name="calorieActivity" required>
+                    <option value="sedentary">Sedentary</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="active">Active</option>
+                </select><br>
+
+                <input type="button" value="Calculate Calories" onclick="calculateCalories()">
+            </form>
+
+            <table id="calorieResult" class="result"></table>
         </div>
 
         <!-- Protein to Body Ratio Calculator -->
         <div id="proteinRatioCalculator" class="calculator">
             <h2>Protein to Body Ratio Calculator</h2>
-            <!-- Protein Ratio Calculator Form Goes Here -->
+            <form id="proteinRatioForm">
+                <label for="proteinWeight">Weight (in kg):</label>
+                <input type="number" id="proteinWeight" name="proteinWeight" required><br>
+
+                <label for="proteinRatio">Select Ratio:</label>
+                <select id="proteinRatio" name="proteinRatio" required>
+                    <option value="1.75">Cut (1.75)</option>
+                    <option value="2.0">Maintain (2.0)</option>
+                    <option value="2.2">Bulk (2.2)</option>
+                </select><br>
+
+                <input type="button" value="Calculate Protein Ratio" onclick="calculateProteinRatio()">
+            </form>
+
+            <p id="proteinRatioResult" class="result"></p>
         </div>
     </div>
 
@@ -113,6 +152,88 @@
                 }
             } else {
                 calculatorContainer.style.display = "none";
+            }
+        }
+
+        function calculateBMI() {
+            var age = document.getElementById("age").value;
+            var height = document.getElementById("height").value;
+            var weight = document.getElementById("weight").value;
+            var gender = document.querySelector('input[name="gender"]:checked');
+
+            if (age && height && weight && gender) {
+                var bmi = (weight / ((height / 100) * (height / 100))).toFixed(2);
+                var result = "BMI: " + bmi;
+
+                // Display BMI result
+                document.getElementById("bmiResult").innerText = result;
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        function calculateCalories() {
+            var age = document.getElementById("calorieAge").value;
+            var height = document.getElementById("calorieHeight").value;
+            var weight = document.getElementById("calorieWeight").value;
+            var gender = document.querySelector('input[name="calorieGender"]:checked');
+            var activityLevel = document.getElementById("calorieActivity").value;
+
+            if (age && height && weight && gender && activityLevel) {
+                // Perform calorie calculation (replace with your formula)
+                var maintenanceCalories = calculateCaloriesForMaintenance(weight, height, age, gender, activityLevel);
+                var cuttingCalories = maintenanceCalories - 500; // 0.5 kg per week
+                var bulkingCalories = maintenanceCalories + 500; // 0.5 kg per week
+
+                // Display calorie result
+                var tableContent = "<tr><th>Goal</th><th>Calories</th></tr>";
+                tableContent += "<tr><td>Maintenance</td><td>" + maintenanceCalories.toFixed(2) + "</td></tr>";
+                tableContent += "<tr><td>Cutting (0.5 kg/week)</td><td>" + cuttingCalories.toFixed(2) + "</td></tr>";
+                tableContent += "<tr><td>Bulking (0.5 kg/week)</td><td>" + bulkingCalories.toFixed(2) + "</td></tr>";
+
+                document.getElementById("calorieResult").innerHTML = tableContent;
+            } else {
+                alert("Please fill in all fields.");
+            }
+        }
+
+        function calculateCaloriesForMaintenance(weight, height, age, gender, activityLevel) {
+            var bmr;
+            if (gender.value === "male") {
+                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+            } else {
+                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+            }
+
+            return bmr * getActivityFactor(activityLevel);
+        }
+
+        function getActivityFactor(activityLevel) {
+            switch (activityLevel) {
+                case "sedentary":
+                    return 1.2;
+                case "moderate":
+                    return 1.5;
+                case "active":
+                    return 1.7;
+                default:
+                    return 1.2;
+            }
+        }
+
+        function calculateProteinRatio() {
+            var weight = document.getElementById("proteinWeight").value;
+            var ratio = document.getElementById("proteinRatio").value;
+
+            if (weight && ratio) {
+                // Perform protein ratio calculation
+                var proteinRatio = weight * ratio;
+                var result = "Protein Ratio: " + proteinRatio.toFixed(2);
+
+                // Display protein ratio result
+                document.getElementById("proteinRatioResult").innerText = result;
+            } else {
+                alert("Please fill in all fields.");
             }
         }
     </script>

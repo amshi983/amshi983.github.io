@@ -99,45 +99,46 @@
         </div>
     </div>
 
-    <!-- Table Creator Section -->
-    <div id="tableCreator">
-        <h2>Table Creator</h2>
-        <label for="exercise">Exercise:</label>
-        <input type="text" id="exercise" name="exercise" required><br>
+   <!-- Table Creator Section -->
+<div id="tableCreator">
+    <h2>Table Creator</h2>
 
-        <label for="weights">Weights:</label>
-        <input type="number" id="weights" name="weights" required><br>
+    <label for="exercise">Exercise:</label>
+    <input type="text" id="exercise" name="exercise" required><br>
 
-        <label for="sets">Sets:</label>
-        <input type="number" id="sets" name="sets" required><br>
+    <label for="weights">Weights:</label>
+    <input type="number" id="weights" name="weights" min="0" required><br>
 
-        <label for="reps">Reps:</label>
-        <input type="number" id="reps" name="reps" required><br>
+    <label for="sets">Sets:</label>
+    <input type="number" id="sets" name="sets" min="1" max="8" required><br>
 
-        <label for="bodyPart">Body Part:</label>
-        <select id="bodyPart" name="bodyPart" required>
-            <option value="chest">Chest</option>
-            <option value="shoulders">Shoulders</option>
-            <option value="arms">Arms</option>
-            <option value="back">Back</option>
-            <option value="legs">Legs</option>
-            <option value="abs">Abs</option>
-        </select><br>
+    <label for="reps">Reps:</label>
+    <input type="number" id="reps" name="reps" min="2" max="15" step="2" required><br>
 
-        <input type="button" value="Add Row" onclick="addTableRow()">
-    </div>
+    <label for="bodyPart">Body Part:</label>
+    <select id="bodyPart" name="bodyPart" required>
+        <option value="chest">Chest</option>
+        <option value="shoulders">Shoulders</option>
+        <option value="arms">Arms</option>
+        <option value="back">Back</option>
+        <option value="legs">Legs</option>
+        <option value="abs">Abs</option>
+    </select><br>
 
-    <table id="exerciseTable">
-        <tr>
-            <th>Exercise</th>
-            <th>Weights</th>
-            <th>Sets</th>
-            <th>Reps</th>
-            <th>Body Part</th>
-        </tr>
-        <!-- Rows will be added here dynamically -->
-    </table>
+    <input type="button" value="Add Row" onclick="addTableRow()">
 </div>
+
+<table id="exerciseTable">
+    <tr>
+        <th>Exercise</th>
+        <th>Weights</th>
+        <th>Sets</th>
+        <th>Reps</th>
+        <th>Body Part</th>
+    </tr>
+    <!-- Rows will be added here dynamically -->
+</table>
+
 
 <script src="script.js"></script>
 </body>

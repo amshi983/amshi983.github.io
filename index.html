@@ -26,13 +26,13 @@
             <h2>BMI Calculator</h2>
             <form id="bmiForm">
                 <label for="age">Age:</label>
-                <input type="number" id="age" name="age" required><br>
+                <input type="number" id="age" name="age" min="0" required><br>
 
                 <label for="height">Height (in cm):</label>
-                <input type="number" id="height" name="height" required><br>
+                <input type="number" id="height" name="height" min="0" required><br>
 
                 <label for="weight">Weight (in kg):</label>
-                <input type="number" id="weight" name="weight" required><br>
+                <input type="number" id="weight" name="weight" min="0" required><br>
 
                 <label>Gender:</label>
                 <input type="radio" id="male" name="gender" value="male" required>
@@ -51,13 +51,13 @@
             <h2>Calorie Calculator</h2>
             <form id="calorieForm">
                 <label for="calorieAge">Age:</label>
-                <input type="number" id="calorieAge" name="calorieAge" required><br>
+                <input type="number" id="calorieAge" name="calorieAge" min="0" required><br>
 
                 <label for="calorieHeight">Height (in cm):</label>
-                <input type="number" id="calorieHeight" name="calorieHeight" required><br>
+                <input type="number" id="calorieHeight" name="calorieHeight" min="0" required><br>
 
                 <label for="calorieWeight">Weight (in kg):</label>
-                <input type="number" id="calorieWeight" name="calorieWeight" required><br>
+                <input type="number" id="calorieWeight" name="calorieWeight" min="0" required><br>
 
                 <label>Gender:</label>
                 <input type="radio" id="calorieMale" name="calorieGender" value="male" required>
@@ -83,7 +83,7 @@
             <h2>Protein to Body Ratio Calculator</h2>
             <form id="proteinRatioForm">
                 <label for="proteinWeight">Weight (in kg):</label>
-                <input type="number" id="proteinWeight" name="proteinWeight" required><br>
+                <input type="number" id="proteinWeight" name="proteinWeight" min="0" required><br>
 
                 <label for="proteinRatio">Select Ratio:</label>
                 <select id="proteinRatio" name="proteinRatio" required>
@@ -99,46 +99,45 @@
         </div>
     </div>
 
-   <!-- Table Creator Section -->
-<div id="tableCreator">
-    <h2>Table Creator</h2>
+    <!-- Table Creator Section -->
+    <div id="tableCreator">
+        <h2>Table Creator</h2>
+        <label for="exercise">Exercise:</label>
+        <input type="text" id="exercise" name="exercise" required><br>
 
-    <label for="exercise">Exercise:</label>
-    <input type="text" id="exercise" name="exercise" required><br>
+        <label for="weights">Weights:</label>
+        <input type="number" id="weights" name="weights" min="0" required><br>
 
-    <label for="weights">Weights:</label>
-    <input type="number" id="weights" name="weights" min="0" required><br>
+        <label for="sets">Sets:</label>
+        <input type="number" id="sets" name="sets" min="1" max="8" required><br>
 
-    <label for="sets">Sets:</label>
-    <input type="number" id="sets" name="sets" min="1" max="8" required><br>
+        <label for="reps">Reps:</label>
+        <input type="number" id="reps" name="reps" min="2" max="15" step="2" required><br>
 
-    <label for="reps">Reps:</label>
-    <input type="number" id="reps" name="reps" min="2" max="15" step="2" required><br>
+        <label for="bodyPart">Body Part:</label>
+        <select id="bodyPart" name="bodyPart" required>
+            <option value="chest">Chest</option>
+            <option value="shoulders">Shoulders</option>
+            <option value="arms">Arms</option>
+            <option value="back">Back</option>
+            <option value="legs">Legs</option>
+            <option value="abs">Abs</option>
+        </select><br>
 
-    <label for="bodyPart">Body Part:</label>
-    <select id="bodyPart" name="bodyPart" required>
-        <option value="chest">Chest</option>
-        <option value="shoulders">Shoulders</option>
-        <option value="arms">Arms</option>
-        <option value="back">Back</option>
-        <option value="legs">Legs</option>
-        <option value="abs">Abs</option>
-    </select><br>
+        <input type="button" value="Add Row" onclick="addTableRow()">
+    </div>
 
-    <input type="button" value="Add Row" onclick="addTableRow()">
+    <table id="exerciseTable">
+        <tr>
+            <th>Exercise</th>
+            <th>Weights</th>
+            <th>Sets</th>
+            <th>Reps</th>
+            <th>Body Part</th>
+        </tr>
+        <!-- Rows will be added here dynamically -->
+    </table>
 </div>
-
-<table id="exerciseTable">
-    <tr>
-        <th>Exercise</th>
-        <th>Weights</th>
-        <th>Sets</th>
-        <th>Reps</th>
-        <th>Body Part</th>
-    </tr>
-    <!-- Rows will be added here dynamically -->
-</table>
-
 
 <script src="script.js"></script>
 </body>

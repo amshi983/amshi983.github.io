@@ -1,0 +1,88 @@
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: left; /* Align text to the left */
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 300px; /* Fixed width */
+    margin-left: 30px; /* Fixed margin to the left */
+    position: fixed; /* Fixed position */
+    left: 0; /* Align to the left */
+    top: 20px; /* Fixed distance from the top */
+}
+
+#calculator-container {
+    display: none;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.calculator {
+    display: none;
+}
+
+#result {
+    font-weight: bold;
+    color: #333;
+}
+
+select, input[type="number"], input[type="text"] {
+    width: 80%; /* Smaller width */
+    padding: 8px; /* Reduced padding */
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: left; /* Align text inside inputs to the left */
+}
+
+input[type="button"] {
+    width: 85%; /* Fixed width for button */
+    padding: 10px;
+    cursor: pointer;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 4px; /* Rounded corners */
+    font-weight: bold; /* Make text bold */
+}
+
+input[type="button"]:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+table {
+    width: 100%; /* Full width of container */
+    margin-top: 20px;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left; /* Align table text to the left */
+}
+
+th {
+    background-color: #f8f8f8;
+}
+
+input[type="radio"] + label {
+    margin-right: 15px; /* Space to the right for alignment */
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+input[type="radio"]:checked + label {
+    background-color: #ddd;
+}
+
+.active-calculator {
+    display: block !important;
+}

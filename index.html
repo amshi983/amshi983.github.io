@@ -2,46 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator Selector</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-        }
-
-        #calculator-container {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .calculator {
-            display: none;
-        }
-
-        #result {
-            font-weight: bold;
-        }
-
-        table {
-            margin-top: 20px;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+<div class="container">
     <h1>Calculator Selector</h1>
 
     <label for="calculatorSelect">Choose a Calculator:</label>
@@ -130,174 +98,47 @@
             <p id="proteinRatioResult" class="result"></p>
         </div>
     </div>
-<!-- Table Creator Section -->
-<div id="tableCreator">
-    <h2>Table Creator</h2>
-    <label for="exercise">Exercise:</label>
-    <input type="text" id="exercise" name="exercise" required>
 
-    <label for="weights">Weights:</label>
-    <input type="number" id="weights" name="weights" value="2" step="2" required>
+    <!-- Table Creator Section -->
+    <div id="tableCreator">
+        <h2>Table Creator</h2>
+        <label for="exercise">Exercise:</label>
+        <input type="text" id="exercise" name="exercise" required><br>
 
-    <label for="sets">Sets:</label>
-    <input type="number" id="sets" name="sets" value="1" min="1" required>
+        <label for="weights">Weights:</label>
+        <input type="number" id="weights" name="weights" required><br>
 
-    <label for="reps">Reps:</label>
-    <input type="number" id="reps" name="reps" value="6" min="1" max="15" required>
+        <label for="sets">Sets:</label>
+        <input type="number" id="sets" name="sets" required><br>
 
-    <label for="bodyPart">Body Part:</label>
-    <select id="bodyPart" name="bodyPart" required>
-        <option value="chest">Chest</option>
-        <option value="shoulders">Shoulders</option>
-        <option value="arms">Arms</option>
-        <option value="back">Back</option>
-        <option value="legs">Legs</option>
-        <option value="abs">Abs</option>
-    </select>
+        <label for="reps">Reps:</label>
+        <input type="number" id="reps" name="reps" required><br>
 
-    <button onclick="addTableRow()">Add Row</button>
+        <label for="bodyPart">Body Part:</label>
+        <select id="bodyPart" name="bodyPart" required>
+            <option value="chest">Chest</option>
+            <option value="shoulders">Shoulders</option>
+            <option value="arms">Arms</option>
+            <option value="back">Back</option>
+            <option value="legs">Legs</option>
+            <option value="abs">Abs</option>
+        </select><br>
+
+        <input type="button" value="Add Row" onclick="addTableRow()">
+    </div>
+
+    <table id="exerciseTable">
+        <tr>
+            <th>Exercise</th>
+            <th>Weights</th>
+            <th>Sets</th>
+            <th>Reps</th>
+            <th>Body Part</th>
+        </tr>
+        <!-- Rows will be added here dynamically -->
+    </table>
 </div>
 
-<table id="exerciseTable">
-    <tr>
-        <th>Exercise</th>
-        <th>Weights</th>
-        <th>Sets</th>
-        <th>Reps</th>
-        <th>Body Part</th>
-    </tr>
-</table>
-
-<script>
-        function showCalculator() {
-            var select = document.getElementById("calculatorSelect");
-            var calculatorContainer = document.getElementById("calculator-container");
-            var selectedCalculator = select.value;
-
-            // Hide all calculators
-            var calculators = document.getElementsByClassName("calculator");
-            for (var i = 0; i < calculators.length; i++) {
-                calculators[i].style.display = "none";
-            }
-
-            // Show selected calculator
-            if (selectedCalculator) {
-                var selectedCalculatorDiv = document.getElementById(selectedCalculator);
-                if (selectedCalculatorDiv) {
-                    selectedCalculatorDiv.style.display = "block";
-                    calculatorContainer.style.display = "block";
-                }
-            } else {
-                calculatorContainer.style.display = "none";
-            }
-        }
-
-        function calculateBMI() {
-            var age = document.getElementById("age").value;
-            var height = document.getElementById("height").value;
-            var weight = document.getElementById("weight").value;
-            var gender = document.querySelector('input[name="gender"]:checked');
-
-            if (age && height && weight && gender) {
-                var bmi = (weight / ((height / 100) * (height / 100))).toFixed(2);
-                var result = "BMI: " + bmi;
-
-                // Display BMI result
-                document.getElementById("bmiResult").innerText = result;
-            } else {
-                alert("Please fill in all fields.");
-            }
-        }
-
-        function calculateCalories() {
-            var age = document.getElementById("calorieAge").value;
-            var height = document.getElementById("calorieHeight").value;
-            var weight = document.getElementById("calorieWeight").value;
-            var gender = document.querySelector('input[name="calorieGender"]:checked');
-            var activityLevel = document.getElementById("calorieActivity").value;
-
-            if (age && height && weight && gender && activityLevel) {
-                // Perform calorie calculation (replace with your formula)
-                var maintenanceCalories = calculateCaloriesForMaintenance(weight, height, age, gender, activityLevel);
-                var cuttingCalories = maintenanceCalories - 500; // 0.5 kg per week
-                var bulkingCalories = maintenanceCalories + 500; // 0.5 kg per week
-
-                // Display calorie result
-                var tableContent = "<tr><th>Goal</th><th>Calories</th></tr>";
-                tableContent += "<tr><td>Maintenance</td><td>" + maintenanceCalories.toFixed(2) + "</td></tr>";
-                tableContent += "<tr><td>Cutting (0.5 kg/week)</td><td>" + cuttingCalories.toFixed(2) + "</td></tr>";
-                tableContent += "<tr><td>Bulking (0.5 kg/week)</td><td>" + bulkingCalories.toFixed(2) + "</td></tr>";
-
-                document.getElementById("calorieResult").innerHTML = tableContent;
-            } else {
-                alert("Please fill in all fields.");
-            }
-        }
-
-        function calculateCaloriesForMaintenance(weight, height, age, gender, activityLevel) {
-            var bmr;
-            if (gender.value === "male") {
-                bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
-            } else {
-                bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
-            }
-
-            return bmr * getActivityFactor(activityLevel);
-        }
-
-        function getActivityFactor(activityLevel) {
-            switch (activityLevel) {
-                case "sedentary":
-                    return 1.2;
-                case "moderate":
-                    return 1.5;
-                case "active":
-                    return 1.7;
-                default:
-                    return 1.2;
-            }
-        }
-
-        function calculateProteinRatio() {
-            var weight = document.getElementById("proteinWeight").value;
-            var ratio = document.getElementById("proteinRatio").value;
-
-            if (weight && ratio) {
-                // Perform protein ratio calculation
-                var proteinRatio = weight * ratio;
-                var result = "Protein Ratio: " + proteinRatio.toFixed(2);
-
-                // Display protein ratio result
-                document.getElementById("proteinRatioResult").innerText = result;
-            } else {
-                alert("Please fill in all fields.");
-            }
-        }
-        
-            function addTableRow() {
-                var exercise = document.getElementById("exercise").value;
-                var weights = document.getElementById("weights").value;
-                var sets = document.getElementById("sets").value;
-                var reps = document.getElementById("reps").value;
-                var bodyPart = document.getElementById("bodyPart").value;
-        
-                var table = document.getElementById("exerciseTable");
-                var row = table.insertRow(-1);
-        
-                var cellExercise = row.insertCell(0);
-                var cellWeights = row.insertCell(1);
-                var cellSets = row.insertCell(2);
-                var cellReps = row.insertCell(3);
-                var cellBodyPart = row.insertCell(4);
-        
-                cellExercise.innerHTML = exercise;
-                cellWeights.innerHTML = weights;
-                cellSets.innerHTML = sets;
-                cellReps.innerHTML = reps;
-                cellBodyPart.innerHTML = bodyPart;
-            }
-        
-    </script>
-
+<script src="script.js"></script>
 </body>
 </html>

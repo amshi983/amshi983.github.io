@@ -12,7 +12,7 @@ body {
 }
 
 .container {
-    width: 600px; /* Fixed width */
+    width: 700px; /* Fixed width */
     margin-left: 30px; /* Fixed margin to the left */
     position: fixed; /* Fixed position */
     left: 0; /* Align to the left */
